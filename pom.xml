@@ -12,7 +12,10 @@
 	<artifactId>hwMaven_BudgetApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hwMaven_BudgetApp</name>
-	<description>hwMaven_BudgetApp</description>
+	<description>Проект "hwMaven".
+		Функционал проекта пока ограничен выводом в брауезере инфромации о самом проекте, в будущем, возможно, функционал будет расширяться.
+		Проект написан на языке Java и реализован с помощью фреймворка Spring и соответствующих ему библиотек.
+	</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
