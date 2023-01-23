@@ -2,10 +2,11 @@ package com.example.hwmaven_budgetapp.service.impl;
 
 import com.example.hwmaven_budgetapp.model.Ingredient;
 import com.example.hwmaven_budgetapp.service.IngredientService;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
-
+@Service
 public class IngredientServiceImpl implements IngredientService {
     private static final HashMap<Integer, Ingredient> mapOfIngredient = new HashMap<>();
     private static int id=0;

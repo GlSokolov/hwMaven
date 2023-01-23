@@ -3,12 +3,13 @@ package com.example.hwmaven_budgetapp.service.impl;
 import com.example.hwmaven_budgetapp.model.Ingredient;
 import com.example.hwmaven_budgetapp.model.Recipe;
 import com.example.hwmaven_budgetapp.service.RecipeService;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class RecipeServiceImpl implements RecipeService {
     private static HashMap<Integer, Recipe> mapOfRecipes = new HashMap<>();
     private static int id = 0;
