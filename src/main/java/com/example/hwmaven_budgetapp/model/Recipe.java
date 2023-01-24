@@ -1,7 +1,16 @@
 package com.example.hwmaven_budgetapp.model;
 
-import java.util.List;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
+import java.util.List;
+@Getter
+@EqualsAndHashCode
+@ToString(includeFieldNames = true)
 public class Recipe {
     private String name;
     private int cookingTime;
@@ -9,14 +18,14 @@ public class Recipe {
     private List<String> instruction;
 
     public Recipe(String name, int cookingTime, List<String> products, List<String> instruction) {
-        this.name = name;
-        this.cookingTime = cookingTime;
-        this.products = products;
-        this.instruction = instruction;
+        setName(name);
+        setCookingTime(cookingTime);
+        setProducts(products);
+        setInstruction(instruction);
     }
 
     public void setName(String name) {
-        if (name!=null && !name.isBlank() && !name.isEmpty()){
+        if (name!=null && StringUtils.isBlank(name) && StringUtils.isEmpty(name)){
             this.name = name;}
         else {this.name = "<Некорректное имя>";}
     }
@@ -27,26 +36,14 @@ public class Recipe {
             this.cookingTime = cookingTime;}
     }
     public void setProducts(List<String> products) {
-        if (products!=null && !products.isEmpty()){
+        if (products!=null && CollectionUtils.isEmpty(products)){
         this.products = products;}
         else throw new IllegalArgumentException("<Некорректно заданы продукты>");
     }
     public void setInstruction(List<String> instruction) {
-        if (instruction!=null && !instruction.isEmpty()){
+        if (instruction!=null && CollectionUtils.isEmpty(instruction)){
             this.instruction = instruction;;}
         else throw new IllegalArgumentException("<Некорректно задана инструкция>");
     }
 
-    public String getName() {
-        return name;
-    }
-    public int getCookingTime() {
-        return cookingTime;
-    }
-    public List<String> getProducts() {
-        return products;
-    }
-    public List<String> getInstruction() {
-        return instruction;
-    }
 }
