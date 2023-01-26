@@ -1,13 +1,13 @@
-package com.example.hwmaven_budgetapp.model;
+package com.example.hwmaven.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @EqualsAndHashCode
 @ToString(includeFieldNames = true)
+//@NoArgsConstructor
 public class Ingredient {
     private String name;
     private int totalIngredients;
@@ -20,7 +20,7 @@ public class Ingredient {
     }
 
     public void setName(String name) {
-        if (name!=null && StringUtils.isBlank(name) && StringUtils.isEmpty(name)){
+        if (name!=null && !name.isBlank() && name.isEmpty()){
         this.name = name;}
         else {this.name = "<Некорректное имя>";}
     }
@@ -31,7 +31,7 @@ public class Ingredient {
         this.totalIngredients = totalIngredients;}
     }
     public void setMeasure(String measure) {
-        if (measure!=null && StringUtils.isBlank(measure) && StringUtils.isEmpty(measure)){
+        if (measure!=null && measure.isBlank() && measure.isEmpty()){
             this.measure = measure;}
         else {this.measure = "<Некорректная грамовка>";}
     }

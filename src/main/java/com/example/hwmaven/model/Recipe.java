@@ -1,16 +1,14 @@
-package com.example.hwmaven_budgetapp.model;
+package com.example.hwmaven.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 @Getter
 @EqualsAndHashCode
 @ToString(includeFieldNames = true)
+//@NoArgsConstructor
 public class Recipe {
     private String name;
     private int cookingTime;
@@ -25,7 +23,7 @@ public class Recipe {
     }
 
     public void setName(String name) {
-        if (name!=null && StringUtils.isBlank(name) && StringUtils.isEmpty(name)){
+        if (name!=null && name.isBlank() && name.isEmpty()){
             this.name = name;}
         else {this.name = "<Некорректное имя>";}
     }
@@ -36,12 +34,12 @@ public class Recipe {
             this.cookingTime = cookingTime;}
     }
     public void setProducts(List<String> products) {
-        if (products!=null && CollectionUtils.isEmpty(products)){
+        if (products!=null && products.isEmpty()){
         this.products = products;}
         else throw new IllegalArgumentException("<Некорректно заданы продукты>");
     }
     public void setInstruction(List<String> instruction) {
-        if (instruction!=null && CollectionUtils.isEmpty(instruction)){
+        if (instruction!=null && instruction.isEmpty()){
             this.instruction = instruction;;}
         else throw new IllegalArgumentException("<Некорректно задана инструкция>");
     }

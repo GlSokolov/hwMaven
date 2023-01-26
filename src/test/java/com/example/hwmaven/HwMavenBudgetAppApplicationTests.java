@@ -1,4 +1,4 @@
-package com.example.hwmaven_budgetapp;
+package com.example.hwmaven;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

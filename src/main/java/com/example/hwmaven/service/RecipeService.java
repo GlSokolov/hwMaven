@@ -1,6 +1,6 @@
-package com.example.hwmaven_budgetapp.service;
+package com.example.hwmaven.service;
 
-import com.example.hwmaven_budgetapp.model.Recipe;
+import com.example.hwmaven.model.Recipe;
 
 import java.util.Collection;
 

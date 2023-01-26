@@ -1,7 +1,7 @@
-package com.example.hwmaven_budgetapp.controllers;
+package com.example.hwmaven.controllers;
 
-import com.example.hwmaven_budgetapp.model.Ingredient;
-import com.example.hwmaven_budgetapp.service.IngredientService;
+import com.example.hwmaven.model.Ingredient;
+import com.example.hwmaven.service.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
