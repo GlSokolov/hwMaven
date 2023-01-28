@@ -27,7 +27,7 @@ public class IngredientController {
     @Operation(summary = "Добавление ингредиента",description = "Тут типа описание")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиент добавлен", content = {
-                    @Content(mediaType = "Тут пока чета не пон", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
     })
     public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
         return ingredientService.addIngredient(ingredient);
@@ -37,7 +37,7 @@ public class IngredientController {
     @Operation(summary = "Получение ингредиента",description = "Тут типа описание")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиенты получены", content = {
-                    @Content(mediaType = "Вроде пон но не совсем", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
     })
     public Ingredient getIngredient(@PathVariable Integer id) {
         return ingredientService.getIngredient(id);
@@ -47,7 +47,7 @@ public class IngredientController {
     @Operation(summary = "Редактирование ингредиента",description = "Тут типа описание")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиент отредактирован", content = {
-                    @Content(mediaType = "Вроде пон", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
     })
     public ResponseEntity<Ingredient> editIngredient(@PathVariable int id , @RequestBody Ingredient ingredient) {
         Ingredient newIngredient = ingredientService.editIngredient(id, ingredient);
@@ -60,7 +60,7 @@ public class IngredientController {
     @Operation(summary = "Удаление ингредиента",description = "Тут типа описание")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиенты удаленеы", content = {
-                    @Content(mediaType = "Вроде пон", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
     })
     public ResponseEntity<Void> deleteIngredient (@PathVariable int id) {
         if (ingredientService.deleteIngredient(id)) {
@@ -72,7 +72,7 @@ public class IngredientController {
     @Operation(summary = "Получение всех ингредиентов",description = "Тут типа описание")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ингредиенты найдены", content = {
-                    @Content(mediaType = "Вроде пон", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))})
     })
     public ResponseEntity<Collection<Ingredient>> getAllIngredients(){
         return ResponseEntity.ok(ingredientService.getAllIngredients());

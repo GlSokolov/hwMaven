@@ -15,16 +15,13 @@ public class FileServiceImpl implements FilesService {
     @Value("${path.to.date.file}")
     private String dataFilePath;
 
-    @Value("${name.to.date.file}")
-    private String dataFileName;
-
-    @PostConstruct
-    public void init(){
-        readFromFile();
-    }
+//    @PostConstruct
+//    public void init(){
+//        readFromFile(dataFileName);
+//    }
 
     @Override
-    public boolean saveToFile(String json) {
+    public boolean saveToFile(String json, String dataFileName) {
         try {
             Files.writeString(Path.of(dataFilePath, dataFileName), json);
             return true;
@@ -34,17 +31,17 @@ public class FileServiceImpl implements FilesService {
         }
     }
     @Override
-    public String readFromFile(){
+    public String readFromFile(String dataFileName){
         try {
-            return Files.readString(Path.of(dataFilePath, dataFileName));
+            return Files.readString(Path.of(dataFilePath,dataFileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     @Override
     public boolean cleanDataFile(){
+        Path path = Path.of(dataFilePath);
         try {
-            Path path = Path.of(dataFilePath, dataFileName);
             Files.deleteIfExists(path);
             Files.createFile(path);
             return true;

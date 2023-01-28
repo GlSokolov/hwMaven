@@ -6,6 +6,7 @@ import com.example.hwmaven.service.IngredientService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 public class IngredientServiceImpl implements IngredientService {
     private static HashMap<Integer, Ingredient> mapOfIngredient = new HashMap<>();
     private static int id=0;
+    @Value("${name.of.ingredients.date.file}")
+    private String dataFileName;
     final private FilesService filesService;
 
     public IngredientServiceImpl(FilesService filesService) {
@@ -60,15 +63,15 @@ public class IngredientServiceImpl implements IngredientService {
     private void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(mapOfIngredient);
-            filesService.saveToFile(json);
+            filesService.saveToFile(json, dataFileName);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void readFromFile(){
-        String json = filesService.readFromFile();
         try {
+            String json = filesService.readFromFile(dataFileName);
             mapOfIngredient = new ObjectMapper().readValue(json, new TypeReference<HashMap<Integer, Ingredient>>() {
             });
         } catch (JsonProcessingException e) {
