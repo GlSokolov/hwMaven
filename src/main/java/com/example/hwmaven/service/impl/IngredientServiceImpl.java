@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.HashMap;
 @Service
@@ -26,6 +27,9 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient addIngredient(Ingredient ingredient) {
+        if (ingredient == null) {
+            throw new IllegalArgumentException("<Неверно указан ингредиент>");
+        }
         mapOfIngredient.put(++id, ingredient);
         saveToFile();
         return ingredient;
@@ -33,6 +37,9 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient getIngredient(int id) {
+        if (!mapOfIngredient.containsKey(id)) {
+            throw new IllegalArgumentException("<Ингредиент не найден>");
+        }
         return mapOfIngredient.get(id);
     }
 
@@ -77,5 +84,9 @@ public class IngredientServiceImpl implements IngredientService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+    @PostConstruct
+    public void init(){
+        readFromFile();
     }
 }

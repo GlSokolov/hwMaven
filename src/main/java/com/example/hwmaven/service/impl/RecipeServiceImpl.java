@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -28,6 +29,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe addRecipe (Recipe recipe) {
+        if (recipe == null) {
+            throw new IllegalArgumentException("<Неверно указан рецепт>");
+        }
         mapOfRecipes.put(++id, recipe);
         saveToFile();
         return mapOfRecipes.get(id);
@@ -36,13 +40,16 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe getRecipe(int id) {
+        if (!mapOfRecipes.containsKey(id)) {
+            throw new IllegalArgumentException("<Рецепт не найден>");
+        }
         return mapOfRecipes.get(id);
     }
 
     @Override
     public Recipe editRecipe(int id, Recipe recipe) {
         if (!mapOfRecipes.containsKey(id)) {
-            throw new IllegalArgumentException("<Ингредиент не найден>");
+            throw new IllegalArgumentException("<Рецепт не найден>");
         }
         mapOfRecipes.put(id, recipe);
         saveToFile();
@@ -52,7 +59,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public boolean deleteRecipe(int id) {
         if (!mapOfRecipes.containsKey(id)) {
-            throw new IllegalArgumentException("<Ингредиент не найден>");
+            throw new IllegalArgumentException("<Рецепт не найден>");
         } else {
             mapOfRecipes.remove(id);
             return true;}
@@ -81,6 +88,9 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException(e);
         }
     }
-
+    @PostConstruct
+    public void init(){
+        readFromFile();
+    }
 
 }

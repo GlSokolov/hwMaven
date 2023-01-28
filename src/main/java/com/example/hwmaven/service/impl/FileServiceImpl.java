@@ -15,11 +15,6 @@ public class FileServiceImpl implements FilesService {
     @Value("${path.to.date.file}")
     private String dataFilePath;
 
-//    @PostConstruct
-//    public void init(){
-//        readFromFile(dataFileName);
-//    }
-
     @Override
     public boolean saveToFile(String json, String dataFileName) {
         try {
