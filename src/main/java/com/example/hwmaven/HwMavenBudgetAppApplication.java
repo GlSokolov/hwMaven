@@ -1,4 +1,4 @@
-package com.example.hwmaven_budgetapp;
+package com.example.hwmaven;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

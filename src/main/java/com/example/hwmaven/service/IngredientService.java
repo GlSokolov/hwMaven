@@ -1,5 +1,5 @@
-package com.example.hwmaven_budgetapp.service;
-import com.example.hwmaven_budgetapp.model.Ingredient;
+package com.example.hwmaven.service;
+import com.example.hwmaven.model.Ingredient;
 
 import java.util.Collection;
 
