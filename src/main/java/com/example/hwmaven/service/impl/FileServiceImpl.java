@@ -4,7 +4,7 @@ import com.example.hwmaven.service.FilesService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,5 +45,8 @@ public class FileServiceImpl implements FilesService {
             return false;
         }
     }
-
+    @Override
+    public File getDataFile(String dataFileName) {
+        return new File(dataFilePath + "/" + dataFileName);
+    }
 }
