@@ -40,7 +40,7 @@ public class FilesController {
             return ResponseEntity.ok().
                     contentType(MediaType.APPLICATION_OCTET_STREAM).
                     contentLength(file.length()).
-                    header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"Recipes.json\"").
+                    header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+recipeFileName).
                     body(resource);
         } else {
             return ResponseEntity.noContent().build();
@@ -56,7 +56,7 @@ public class FilesController {
             return ResponseEntity.ok().
                     contentType(MediaType.APPLICATION_OCTET_STREAM).
                     contentLength(file.length()).
-                    header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"ingredients.json\"").
+                    header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+ingredientFileName).
                     body(resource);
         } else {
             return ResponseEntity.noContent().build();
