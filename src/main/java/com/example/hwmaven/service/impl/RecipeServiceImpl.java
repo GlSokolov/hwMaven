@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
@@ -41,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe getRecipe(int id) {
         if (!mapOfRecipes.containsKey(id)) {
-            throw new IllegalArgumentException("<Рецепт не найден>");
+            throw new NotFoundException("<Рецепт не найден>");
         }
         return mapOfRecipes.get(id);
     }
