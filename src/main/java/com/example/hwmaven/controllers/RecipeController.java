@@ -10,10 +10,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.webjars.NotFoundException;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 
 @RestController
@@ -79,4 +85,29 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getAllRecipes());
     }
 
+    @GetMapping(value = "/recipes.txt", produces = MediaType.TEXT_PLAIN_VALUE)
+    @Operation(summary = "Получение всех рецептов в формате txt",description = "Тут типа описание")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Рецепты"),
+            @ApiResponse(responseCode = "400",description = "Ошибка запроса"),
+            @ApiResponse(responseCode = "400",description = "Неверный URL"),
+            @ApiResponse(responseCode = "500",description = "Ошибка сервера")
+    })
+    public ResponseEntity<InputStreamResource> getAllRecipesTxt() {
+        try {
+            Path path = recipeService.createAllRecipesReport();
+            if (Files.size(path) == 0) {
+                return ResponseEntity.noContent().build();
+            }
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
+            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN)
+                    .contentLength(Files.size(path))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "txt\"")
+                    .body(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+
+    }
 }
