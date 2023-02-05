@@ -45,4 +45,9 @@ public class Recipe {
 //        else throw new IllegalArgumentException("<Некорректно задана инструкция>");
 //    }
 
+
+    @Override
+    public String toString() {
+        return name +" "+ cookingTime +" "+ products +" "+ instruction;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.hwmaven.service;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public interface FilesService {
 
@@ -11,4 +12,6 @@ public interface FilesService {
     boolean cleanDataFile();
 
     File getDataFile(String dataFileName);
+
+    Path createTempFile(String suffix);
 }

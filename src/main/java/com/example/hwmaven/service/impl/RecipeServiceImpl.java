@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import javax.annotation.PostConstruct;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -73,6 +77,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     private void saveToFile() {
         try {
+//            DataFile dataFile = new DataFile(id + 1, mapOfRecipes);
+//            String json = new ObjectMapper().writeValueAsString(dataFile);
             String json = new ObjectMapper().writeValueAsString(mapOfRecipes);
             filesService.saveToFile(json, dataFileName);
         } catch (JsonProcessingException e) {
@@ -89,9 +95,66 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException(e);
         }
     }
+//    private void readFromFile(){
+//        try {
+//            String json = filesService.readFromFile(dataFileName);
+//            DataFile dataFile = new ObjectMapper().readValue(json, new TypeReference<DataFile>() {
+//            });
+//            id = dataFile.getId();
+//            mapOfRecipes = dataFile.getRecipes();
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//    @Data
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    private static class DataFile {
+//        private int id;
+//        private HashMap<Integer, Recipe> recipes;
+//
+//    }
     @PostConstruct
     public void init(){
-        readFromFile();
+        try {
+            readFromFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void addRecipeInputStream(InputStream inputStream) throws IOException {
+//
+//        try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
+//            String line;
+//            while ((line = reader.readLine()) != null){
+//                String[] array = StringUtils.split(line,'|');
+//                new Ingredient()
+//            }
+//        }
+//    }
+    @Override
+    public Path createAllRecipesReport () throws IOException {
+        mapOfRecipes.getOrDefault(id, null);
+        Path recipes = filesService.createTempFile("Recipes");
+        try (Writer writer = Files.newBufferedWriter(recipes, StandardCharsets.UTF_8)) {
+            for (Recipe recipe : mapOfRecipes.values()) {
+                StringBuilder ingredients = new StringBuilder();
+                StringBuilder steps = new StringBuilder();
+                for (String ingredient : recipe.getProducts()){
+                    ingredients.append(ingredient).append(", \n");
+                }
+                for (String instructions : recipe.getInstruction()) {
+                    steps.append("\r\n").append(instructions);
+                }
+                writer.append(recipe.getName()).append("\r\n")
+                        .append("Время готовки: ").append(String.valueOf(recipe.getCookingTime())).append(" минут ").append("\r\n")
+                        .append("Ингредиенты: ").append(ingredients.toString()).append("\r\n")
+                        .append("Инструкция: ").append(steps.toString());
+                writer.append("\r\n");
+            }
+        }
+        return recipes;
     }
 
 }
